@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 public class UserLogin extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1l;
 	private final JTextField textField;
 	private final JPasswordField passwordField;
 	private final JButton btnNewButton;
@@ -99,11 +99,10 @@ public class UserLogin extends JFrame {
 				String userName = textField.getText();
 				String password = passwordField.getText();
 				try {
-					Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/swing_demo",
-							"root", "root");
-
-					PreparedStatement st = connection
-							.prepareStatement("Select name, password from student where name=? and password=?");
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/swing_demo", "root", "");
+					PreparedStatement st = con
+							.prepareStatement("" + " name, password from student where name=? and password=?");
 
 					st.setString(1, userName);
 					st.setString(2, password);
@@ -119,6 +118,9 @@ public class UserLogin extends JFrame {
 					}
 				} catch (SQLException sqlException) {
 					sqlException.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
